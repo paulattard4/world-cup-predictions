@@ -9,6 +9,7 @@ st.set_page_config(
     page_title="World Cup 2026 Predictions",
     page_icon="🏆",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 
@@ -506,8 +507,7 @@ inject_custom_css()
 hero_section()
 
 
-with st.sidebar:
-    st.header("Controls")
+with st.expander("Controls", expanded=False):
     if st.button("Refresh data"):
         st.cache_data.clear()
         st.rerun()
