@@ -1,0 +1,5 @@
+match_id,stage,group_name,match_date,home_team,away_team,is_final,is_knockout
+1,Group Stage,A,2026-06-11,Mexico,South Africa,false,false
+2,Group Stage,A,2026-06-12,Canada,Japan,false,false
+103,Third Place,,2026-07-18,Team A,Team B,false,true
+104,Final,,2026-07-19,Team A,Team B,true,true

@@ -1,0 +1,6 @@
+match_id,contestant_id,pred_home_score,pred_away_score,pred_period,pred_winner
+1,1,2,1,FT,Mexico
+1,2,1,1,FT,
+1,3,0,1,FT,South Africa
+1,4,2,0,FT,Mexico
+1,5,1,2,FT,South Africa

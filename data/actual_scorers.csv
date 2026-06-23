@@ -1,0 +1,4 @@
+match_id,team,scorer_name,is_own_goal
+1,Mexico,Player A,false
+1,Mexico,Player C,false
+1,South Africa,Player B,false
