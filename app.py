@@ -646,8 +646,16 @@ with tab2:
             selected_match,
         )
 
-        st.subheader("Actual scorers")
-        st.info(actual_scorers_text)
+        actual_score_text = ""
+        if not filtered.empty and "actual_result" in filtered.columns:
+            actual_score_text = str(filtered["actual_result"].iloc[0]).strip()
+
+        actual_score_and_scorers = actual_scorers_text
+        if actual_score_text:
+            actual_score_and_scorers = f"{actual_score_text}\n\n{actual_scorers_text}"
+
+        st.subheader("Actual score and scorers")
+        st.info(actual_score_and_scorers)
 
         st.subheader("Prediction and scoring breakdown")
 
