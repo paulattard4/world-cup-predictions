@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from data_loader import get_data_source_name, load_all_data
 from scoring import POINTS, calculate_leaderboard
@@ -12,6 +14,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+def get_last_updated_text() -> str:
+    updated_at = datetime.now(ZoneInfo("Europe/Malta"))
+    return updated_at.strftime("%d %b %Y, %H:%M")
 
 def inject_custom_css():
     st.markdown(
@@ -416,6 +421,24 @@ def inject_custom_css():
             color: #4B5563 !important;
         }
 
+        .last-updated-card {
+            display: inline-block;
+            margin: -8px 0 22px 0;
+            padding: 9px 16px;
+            border-radius: 999px;
+            background: #FFFFFF;
+            color: #111827 !important;
+            font-size: 14px;
+            font-weight: 750;
+            border: 2px solid #D1D5DB;
+            box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
+        }
+
+        .last-updated-card strong {
+            color: #111827 !important;
+            font-weight: 950;
+        }
+
         </style>
         """,
         unsafe_allow_html=True,
@@ -441,7 +464,27 @@ def hero_section():
         unsafe_allow_html=True,
     )
 
-
+def last_updated_section():
+    st.markdown(
+        f"""
+        <div style="
+            display: block;
+            width: fit-content;
+            margin: 0 0 24px 0;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: #B8F000;
+            color: #111827;
+            font-size: 16px;
+            font-weight: 900;
+            border: 3px solid #111827;
+            box-shadow: 4px 4px 0 rgba(17, 24, 39, 0.18);
+        ">
+            🕒 Last updated: {get_last_updated_text()} Malta time
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def style_total_match_points(df: pd.DataFrame):
     if "total_match_points" not in df.columns:
@@ -505,7 +548,7 @@ def format_scorers_for_match(
 inject_custom_css()
 
 hero_section()
-
+last_updated_section()
 
 with st.expander("Controls", expanded=False):
     if st.button("Refresh data"):
