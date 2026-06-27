@@ -21,6 +21,7 @@ GOOGLE_SHEET_CSV_URLS = {
     "group_results": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRV_yHNn4HrPUAdeFAqT22JvCambhRmF-T3zGTj8wqzDc4PExUBLyzcf3iNHeWojWXTU93vvnaUeZD/pub?gid=477464182&single=true&output=csv",
     "award_predictions": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRV_yHNn4HrPUAdeFAqT22JvCambhRmF-T3zGTj8wqzDc4PExUBLyzcf3iNHeWojWXTU93vvnaUeZD/pub?gid=430492069&single=true&output=csv",
     "award_results": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRV_yHNn4HrPUAdeFAqT22JvCambhRmF-T3zGTj8wqzDc4PExUBLyzcf3iNHeWojWXTU93vvnaUeZD/pub?gid=1695379614&single=true&output=csv",
+    "settings": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRV_yHNn4HrPUAdeFAqT22JvCambhRmF-T3zGTj8wqzDc4PExUBLyzcf3iNHeWojWXTU93vvnaUeZD/pub?gid=299914494&single=true&output=csv",
 }
 
 
@@ -77,4 +78,5 @@ def load_all_data() -> dict[str, pd.DataFrame]:
         "group_results": load_table("group_results", "group_results.csv"),
         "award_predictions": load_table("award_predictions", "award_predictions.csv"),
         "award_results": load_table("award_results", "award_results.csv"),
+        "settings": load_table("settings", "settings.csv"),
     }

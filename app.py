@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-from datetime import datetime
-from zoneinfo import ZoneInfo
 
 from data_loader import get_data_source_name, load_all_data
 from scoring import POINTS, calculate_leaderboard
@@ -14,9 +12,26 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-def get_last_updated_text() -> str:
-    updated_at = datetime.now(ZoneInfo("Europe/Malta"))
-    return updated_at.strftime("%d %b %Y, %H:%M")
+def get_last_updated_text(settings: pd.DataFrame) -> str:
+    if settings.empty:
+        return "Not available"
+
+    if not {"key", "value"}.issubset(settings.columns):
+        return "Not available"
+
+    row = settings[
+        settings["key"].astype(str).str.strip().str.lower() == "last_updated"
+    ]
+
+    if row.empty:
+        return "Not available"
+
+    value = str(row["value"].iloc[0]).strip()
+
+    if not value:
+        return "Not available"
+
+    return value
 
 def inject_custom_css():
     st.markdown(
@@ -464,7 +479,7 @@ def hero_section():
         unsafe_allow_html=True,
     )
 
-def last_updated_section():
+def last_updated_section(settings: pd.DataFrame):
     st.markdown(
         f"""
         <div style="
@@ -480,7 +495,7 @@ def last_updated_section():
             border: 3px solid #111827;
             box-shadow: 4px 4px 0 rgba(17, 24, 39, 0.18);
         ">
-            🕒 Last updated: {get_last_updated_text()} Malta time
+            🕒 Google Sheets last edited: {get_last_updated_text(settings)} Malta time
         </div>
         """,
         unsafe_allow_html=True,
@@ -547,8 +562,11 @@ def format_scorers_for_match(
 
 inject_custom_css()
 
+data = load_all_data()
+settings = data.get("settings", pd.DataFrame())
+
 hero_section()
-last_updated_section()
+last_updated_section(settings)
 
 with st.expander("Controls", expanded=False):
     if st.button("Refresh data"):
@@ -558,8 +576,6 @@ with st.expander("Controls", expanded=False):
     st.caption(f"Data source: {get_data_source_name()}")
     st.caption("Edit Google Sheets, then refresh.")
 
-
-data = load_all_data()
 
 contestants = data["contestants"]
 matches = data["matches"]
